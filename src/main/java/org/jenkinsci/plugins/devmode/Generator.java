@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -31,7 +32,7 @@ public abstract class Generator implements RootAction {
     }
 
     public String getUrlName() {
-        return getClass().getName();
+        return getClass().getEnclosingClass().getName();
     }
 
     /**
@@ -64,8 +65,10 @@ public abstract class Generator implements RootAction {
         return HttpResponses.forwardToView(this,"ok").with("files",generatedFiles);
     }
 
-    private BufferedReader open(String resName) throws UnsupportedEncodingException {
-        return new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(resName),"UTF-8"));
+    private BufferedReader open(String resName) throws IOException {
+        InputStream res = getClass().getResourceAsStream(resName);
+        if (res==null)  throw new IOException("Non-existent template: "+resName);
+        return new BufferedReader(new InputStreamReader(res,"UTF-8"));
     }
 
     public File applyTemplate(String resourceName, Map<String,String> vars) throws IOException {

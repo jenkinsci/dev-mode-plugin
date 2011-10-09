@@ -22,6 +22,11 @@
     </resources>
     <plugins>
       <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>1.77-SNAPSHOT</version>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.gmaven</groupId>
         <artifactId>gmaven-plugin</artifactId>
         <executions>

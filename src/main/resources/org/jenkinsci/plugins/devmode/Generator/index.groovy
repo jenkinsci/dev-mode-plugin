@@ -9,6 +9,10 @@ l.layout {
 
         f.form(action:"generate", method:"post") {
             include(my,"main") // main section in the main.groovy
+
+            f.block {
+                f.submit(value:_("Generate"))
+            }
         }
     }
 }

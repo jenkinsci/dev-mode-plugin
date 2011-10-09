@@ -5,7 +5,7 @@ def list(File root, Closure body) {
 def list(File root, File f, Closure body) {
     f.listFiles().each { File c ->
         if (c.isDirectory())    list(root,c,body);
-        else                    body(c.path.substring(root.path.length()+1));
+        else                    body(c.path.substring(root.path.length()));
     }
 }
 
