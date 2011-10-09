@@ -34,7 +34,9 @@ public abstract class Generator implements RootAction {
     public final Class extensionPointType;
 
     protected Generator() {
-        this.extensionPointType = getClass().getEnclosingClass();
+        Class<?> e = getClass().getEnclosingClass();
+        if (e==null)    e=getClass();
+        this.extensionPointType = e;
         if (extensionPointType==null)
             throw new IllegalStateException(getClass()+" isn't a nested type. Use a no-arg constructor to specify the type.");
     }
@@ -48,7 +50,7 @@ public abstract class Generator implements RootAction {
     }
 
     public String getUrlName() {
-        return getClass().getEnclosingClass().getName();
+        return extensionPointType.getName();
     }
 
     /**
