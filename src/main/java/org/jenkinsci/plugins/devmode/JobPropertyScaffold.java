@@ -21,4 +21,16 @@ public class JobPropertyScaffold extends JobProperty<Job<?,?>> {
             return "Implement a new JobProperty";
         }
     }
+
+    @Extension
+    public static class GeneratorImpl extends Generator {
+        public String getDisplayName() {
+            return "Generate a new job property";
+        }
+
+        @Override
+        public boolean isTemplate(String path) {
+            return path.startsWith("/_PKG_/_JOBPROPERTY_");
+        }
+    }
 }

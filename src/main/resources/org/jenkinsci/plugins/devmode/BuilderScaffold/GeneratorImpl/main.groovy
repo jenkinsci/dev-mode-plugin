@@ -2,7 +2,7 @@ package org.jenkinsci.plugins.devmode.BuilderScaffold.GeneratorImpl
 
 def f = namespace(lib.FormTagLib)
 
-f.entry(title:_("Package Name"),field:"_PKGBUILDER_") {
+f.entry(title:_("Package Name"),field:"_PKG_") {
     f.textbox()
 }
 

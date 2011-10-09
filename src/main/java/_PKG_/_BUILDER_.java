@@ -1,4 +1,4 @@
-package _PKGBUILDER_;
+package _PKG_;
 
 import hudson.Extension;
 import hudson.Launcher;

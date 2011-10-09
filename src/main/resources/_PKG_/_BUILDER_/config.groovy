@@ -1,4 +1,4 @@
-package _PKGBUILDER_._BUILDER_
+package _PKG_._BUILDER_
 
 def f = namespace(lib.FormTagLib.class)
 

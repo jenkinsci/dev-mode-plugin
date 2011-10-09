@@ -1,5 +1,5 @@
 def f = namespace(lib.FormTagLib.class)
 
 f.entry {
-    raw("<a href=foo>bar</a>")
+    a(href:"${rootURL}/${descriptor.clazz.name}", _("Generate a new job property"))
 }
