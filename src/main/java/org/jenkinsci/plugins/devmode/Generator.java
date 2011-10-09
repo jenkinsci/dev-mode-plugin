@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.devmode;
 
 import hudson.Extension;
-import hudson.Util;
 import hudson.model.RootAction;
 import hudson.util.HttpResponses;
 import net.sf.json.JSONObject;
@@ -27,6 +26,18 @@ import java.util.Set;
  * @author Kohsuke Kawaguchi
  */
 public abstract class Generator implements RootAction {
+    public final Class extensionPointType;
+
+    protected Generator() {
+        this.extensionPointType = getClass().getEnclosingClass();
+        if (extensionPointType==null)
+            throw new IllegalStateException(getClass()+" isn't a nested type. Use a no-arg constructor to specify the type.");
+    }
+
+    protected Generator(Class extensionPointType) {
+        this.extensionPointType = extensionPointType;
+    }
+
     public String getIconFileName() {
         return null;
     }
