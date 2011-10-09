@@ -18,7 +18,7 @@ public class JobPropertyScaffold extends JobProperty<Job<?,?>> {
     public static class DescriptorImpl extends JobPropertyDescriptor {
         @Override
         public String getDisplayName() {
-            return "Implement a new JobProperty";
+            return "Generate a new JobProperty";
         }
     }
 
