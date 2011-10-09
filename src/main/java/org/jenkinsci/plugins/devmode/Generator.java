@@ -30,10 +30,11 @@ import java.util.Set;
  * 
  * @author Kohsuke Kawaguchi
  */
-public abstract class Generator implements RootAction {
+public abstract class Generator extends Descriptor<Generator> implements RootAction, Describable<Generator> {
     public final Class extensionPointType;
 
     protected Generator() {
+        super(self());
         Class<?> e = getClass().getEnclosingClass();
         if (e==null)    e=getClass();
         this.extensionPointType = e;
@@ -42,6 +43,7 @@ public abstract class Generator implements RootAction {
     }
 
     protected Generator(Class extensionPointType) {
+        super(self());
         this.extensionPointType = extensionPointType;
     }
 
@@ -155,5 +157,9 @@ public abstract class Generator implements RootAction {
 
             return name.toString();
         }
+    }
+
+    public Descriptor<Generator> getDescriptor() {
+        return this;
     }
 }

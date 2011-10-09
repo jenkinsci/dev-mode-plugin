@@ -1,0 +1,27 @@
+<div>
+    Specify the portion of the Jenkins URL space that this extension occupies.
+    There are a few different kind of values you can specify.
+
+    <ul>
+        <dt><b>"foo"</b>
+        <dd>
+        A simple token without '/' maps your object to ".../foo/" where "..."
+        portion is the URL that points to the object that your action object attaches to.
+        This is typically used for extensions that display information or forms.
+
+        <dt><b>"/foo/bar"</b>
+        <dd>
+        A path that starts with '/' makes the action link to the specified path within Jenkins.
+        This is typically used when your action simply refers to other parts of Jenkins.
+
+        <dt><b>"http://jenkins-ci.org/somewhere"</b>
+        <dd>
+        Absolute URL makes the action link point to the specified URL. This is used when your
+        action points to somewhere outside Jenkins.
+
+        <dt><b>null</b>
+        <dd>
+        Specify null makes your action hidden from the HTTP requests. This is used when
+        your action is just supposed to be accessed programmatically, as opposed by users.
+    </ul>
+</div>
