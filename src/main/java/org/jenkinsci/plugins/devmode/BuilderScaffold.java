@@ -30,7 +30,7 @@ public class BuilderScaffold extends Builder {
 
         @Override
         public boolean isTemplate(String path) {
-            return path.startsWith("_PKGBUILDER_/_BUILDER_");
+            return path.startsWith("/_PKGBUILDER_/_BUILDER_");
         }
     }
 }

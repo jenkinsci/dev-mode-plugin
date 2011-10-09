@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -77,16 +77,18 @@ public abstract class Generator implements RootAction {
 
         String header = resourceName.endsWith(".java") ? "/src/main/java" : "/src/main/resources";
 
-        File output = new File(new File(moduleRoot+header), Util.replaceMacro(resourceName,vars));
+        File output = new File(new File(moduleRoot+header), replace(resourceName, vars));
         output.getParentFile().mkdirs();
-        // TODO: need some pre-caution to avoid overwriting a file
+
+        if (output.exists())
+            throw new IllegalStateException(output+" already exists");
 
         PrintWriter f = new PrintWriter(new FileWriter(output));
         BufferedReader r = open(resourceName);
         try {
             String line;
             while ((line=r.readLine())!=null) {
-                f.println(Util.replaceMacro(line,vars));
+                f.println(replace(line, vars));
             }
         } finally {
             f.close();
@@ -94,5 +96,12 @@ public abstract class Generator implements RootAction {
         }
 
         return output;
+    }
+
+    private String replace(String s, Map<String, String> vars) {
+        for (Entry<String, String> e : vars.entrySet()) {
+            s = s.replace(e.getKey(),e.getValue());
+        }
+        return s;
     }
 }
