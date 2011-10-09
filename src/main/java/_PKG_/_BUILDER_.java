@@ -7,6 +7,7 @@ import hudson.model.AbstractProject;
 import hudson.model.BuildListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
+import org.jenkinsci.plugins.devmode.ExtensionMarker;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class _BUILDER_ extends Builder {
         return true;
     }
 
-    @Extension
+    @ExtensionMarker
     public static class DescriptorImpl extends BuildStepDescriptor<Builder> {
         @Override
         public boolean isApplicable(Class<? extends AbstractProject> jobType) {
