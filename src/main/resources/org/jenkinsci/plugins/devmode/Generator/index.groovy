@@ -8,6 +8,8 @@ l.layout {
         h2(my.displayName)
 
         f.form(action:"generate", method:"post") {
+            set("instance",my)
+            set("descriptor",my)
             include(my,"main") // main section in the main.groovy
 
             f.block {

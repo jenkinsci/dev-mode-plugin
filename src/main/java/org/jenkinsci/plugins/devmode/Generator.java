@@ -1,6 +1,8 @@
 package org.jenkinsci.plugins.devmode;
 
 import hudson.Extension;
+import hudson.model.Describable;
+import hudson.model.Descriptor;
 import hudson.model.RootAction;
 import hudson.util.HttpResponses;
 import net.sf.json.JSONObject;
@@ -10,6 +12,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import javax.servlet.ServletException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +26,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
+ * Performs the actual code generation.
+ * 
  * @author Kohsuke Kawaguchi
  */
 public abstract class Generator implements RootAction {
@@ -83,12 +88,11 @@ public abstract class Generator implements RootAction {
     }
 
     public File applyTemplate(String resourceName, Map<String,String> vars) throws IOException {
-        String moduleRoot = System.getProperty("jenkins.moduleRoot");
-        if (moduleRoot==null)   throw new IllegalStateException("jenkins.moduleRoot is not set. Perhaps you are using an old version of maven-hpi-plugin?");
+        File moduleRoot = getModuleRoot();
 
         String header = resourceName.endsWith(".java") ? "/src/main/java" : "/src/main/resources";
 
-        File output = new File(new File(moduleRoot+header), replace(resourceName, vars));
+        File output = new File(new File(moduleRoot,header), replace(resourceName, vars));
         output.getParentFile().mkdirs();
 
         if (output.exists())
@@ -109,10 +113,45 @@ public abstract class Generator implements RootAction {
         return output;
     }
 
+    private File getModuleRoot() {
+        String moduleRoot = System.getProperty("jenkins.moduleRoot");
+        if (moduleRoot==null)   throw new IllegalStateException("jenkins.moduleRoot is not set. Perhaps you are using an old version of maven-hpi-plugin?");
+        return new File(moduleRoot);
+    }
+
+    /**
+     * Performs the variable expansions.
+     *
+     * TODO: we shouldn't expand the result of expansion.
+     */
     private String replace(String s, Map<String, String> vars) {
         for (Entry<String, String> e : vars.entrySet()) {
             s = s.replace(e.getKey(),e.getValue());
         }
         return s;
+    }
+
+    public String get_PKG_() {
+        return inferPackage(new File(getModuleRoot(),"src/main/java"));
+    }
+
+    private String inferPackage(File srcDir) {
+        StringBuilder name = new StringBuilder();
+
+        while (true) {
+            File[] children = srcDir.listFiles(new FileFilter() {
+                public boolean accept(File f) {
+                    return f.isDirectory();
+                }
+            });
+            if (children!=null && children.length==1) {
+                if (name.length()>0)    name.append('.');
+                name.append(children[0].getName());
+                srcDir = children[0];
+                continue;
+            }
+
+            return name.toString();
+        }
     }
 }

@@ -5,7 +5,7 @@ import hudson.model.Describable
 def f = namespace(lib.FormTagLib)
 
 f.entry(title:_("Package Name"),field:"_PKG_") {
-    f.textbox()
+    f.textbox(value:my.get_PKG_())
 }
 
 f.entry(title:_("Class Name"),field:"_BUILDER_") {
