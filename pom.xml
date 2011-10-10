@@ -3,13 +3,14 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.425</version>
+    <version>1.435-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>dev-mode</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <description>Provides additional development mode support during hpi:run</description>
   <packaging>hpi</packaging>
+  <url></url>
 
   <build>
     <resources>
@@ -40,11 +41,22 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <!-- 1.8 not yet supported by plugin but 1.7 works
+               here so long as we provide explicit version -->
+          <providerSelection>1.7</providerSelection>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.gmaven.runtime</groupId>
+            <artifactId>gmaven-runtime-1.7</artifactId>
+            <version>1.3</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
 
-  <!-- get every artifact through maven.glassfish.org, which proxies all the artifacts that we need -->
   <repositories>
     <repository>
       <id>m.g.o-public</id>
