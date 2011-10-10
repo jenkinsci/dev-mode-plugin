@@ -1,4 +1,4 @@
-package org.jenkinsci.plugins.devmode.BuilderScaffold
+package org.jenkinsci.plugins.devmode.BuilderGenerator
 def f = namespace(lib.FormTagLib.class)
 
 f.entry {

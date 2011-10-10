@@ -10,7 +10,7 @@ import org.kohsuke.stapler.QueryParameter;
  * @author Kohsuke Kawaguchi
  */
 @Extension
-public class RootActionScaffold extends Generator implements RootAction {
+public class RootActionGenerator extends Generator implements RootAction {
     public String getIconFileName() {
         return "setting.png";
     }

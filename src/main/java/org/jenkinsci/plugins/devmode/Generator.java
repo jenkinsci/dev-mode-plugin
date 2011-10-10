@@ -4,6 +4,8 @@ import hudson.Extension;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
 import hudson.model.RootAction;
+import hudson.tasks.Builder;
+import hudson.tasks.Publisher;
 import hudson.util.HttpResponses;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.HttpResponse;
@@ -31,6 +33,10 @@ import java.util.Set;
  * @author Kohsuke Kawaguchi
  */
 public abstract class Generator extends Descriptor<Generator> implements RootAction, Describable<Generator> {
+    /**
+     * Extension point that this generator is generating,
+     * such as {@link Builder}, {@link Publisher}, etc.
+     */
     public final Class extensionPointType;
 
     protected Generator() {

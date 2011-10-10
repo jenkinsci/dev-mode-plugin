@@ -9,9 +9,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class JobPropertyScaffold extends JobProperty<Job<?,?>> {
+public class JobPropertyGenerator extends JobProperty<Job<?,?>> {
     @DataBoundConstructor
-    public JobPropertyScaffold() {
+    public JobPropertyGenerator() {
     }
 
     @Extension

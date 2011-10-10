@@ -1,4 +1,4 @@
-package org.jenkinsci.plugins.devmode.RootActionScaffold
+package org.jenkinsci.plugins.devmode.RootActionGenerator
 
 import org.jenkinsci.plugins.devmode.Generator
 

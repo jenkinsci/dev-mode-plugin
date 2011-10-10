@@ -8,7 +8,7 @@ import hudson.tasks.Builder;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class BuilderScaffold extends Builder {
+public class BuilderGenerator extends Builder {
     @Extension
     public static class DescriptorImpl extends BuildStepDescriptor<Builder> {
         @Override
